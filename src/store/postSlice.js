@@ -1,36 +1,27 @@
-import { createSlice } from "@reduxjs/toolkit";
+import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
+import axios from "../utils/axios";
+
+export const fetchPosts = createAsyncThunk("posts/fetchPosts", async () => {
+  const response = await axios.get("posts/all");
+  return response.data.docs;
+});
 
 const initialState = {
-  posts: [
-    {
-      title: "First post",
-      content: "First post content!",
-      description: "First post description!",
-      published: true,
-      createdAt: new Date(),
-    },
-    {
-      title: "Second post",
-      content: "Second post content!",
-      description: "Second post description!",
-      published: false,
-      createdAt: new Date(),
-    },
-    {
-      title: "Third post",
-      content: "Third post content!",
-      description: "Third post description!",
-      published: true,
-      createdAt: new Date(),
-    },
-  ],
+  posts: [],
+  status: "pending",
 };
+
 
 export const postsSlice = createSlice({
   name: "posts",
   initialState,
   reducers: {},
-});
+  extraReducers: (builder) => {
+    builder.addCase(fetchPosts.fulfilled, (state, action) => {
+       state.status="succeeded";
+       state.posts = action.payload;
+      })
+}});
 
 // Action creators are generated for each case reducer function
 export const {} = postsSlice.actions;

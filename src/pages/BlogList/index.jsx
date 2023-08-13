@@ -1,10 +1,18 @@
-//import React from 'react'
-import { useSelector } from "react-redux";
+import React from 'react'
+import { useDispatch, useSelector } from "react-redux";
+
+import { fetchPosts } from "../../store/postSlice";
+
 
 import PostCard from "../../components/PostCard";
 
 const index = () => {
   const { posts } = useSelector((state) => state.posts);
+const dispatch =useDispatch();
+
+React.useEffect (() => {dispatch(fetchPosts());}, [dispatch]); //the same []
+
+
 
   return (
     <div className="flex-grow">
