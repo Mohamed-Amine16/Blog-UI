@@ -1,6 +1,10 @@
 //import React from 'react'
+import { Link } from "react-router-dom";
+
+
+
 import makeDateReadable from "../utils/date";
-const PostCard = ({title,description,createdAt}) => {
+const PostCard = ({title,description,createdAt,path}) => {
 
   return (
     <div className="max-w-2xl px-8 my-12 py-4 bg-white rounded-lg shadow-md dark:bg-gray-800">
@@ -35,14 +39,14 @@ const PostCard = ({title,description,createdAt}) => {
       </div>
 
       <div className="flex items-center justify-between mt-4">
-        <a
+        <Link to={"/"+path}
           href="#"
           className="text-blue-600 dark:text-blue-400 hover:underline"
           tabIndex="0"
           role="link"
         >
           Read more
-        </a>
+        </Link>
 
         <div className="flex items-center">
           <img

@@ -1,5 +1,7 @@
 //import React from 'react'
 
+import { Link } from "react-router-dom"
+
 const Header = () => {
   return (
     <nav className="relative bg-white shadow dark:bg-gray-800">
@@ -72,12 +74,12 @@ const Header = () => {
           >
             Contact
           </a>
-          <a
+          <Link to={"/create"}
             className="my-2 text-gray-700 transition-colors duration-300 transform dark:text-gray-200 hover:text-blue-500 dark:hover:text-blue-400 md:mx-4 md:my-0"
             href="#"
           >
-            About
-          </a>
+            Create
+          </Link>
         </div>
 
         <div className="flex justify-center md:block">
