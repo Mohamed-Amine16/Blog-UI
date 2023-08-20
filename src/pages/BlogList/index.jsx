@@ -22,6 +22,7 @@ const Index = () => {
           description={post.desciption}
           createdAt={post.createdAt}
           path={post._id}
+          id={post._id}
         />
       ))}
     </div>

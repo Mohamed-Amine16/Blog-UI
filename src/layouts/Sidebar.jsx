@@ -1,55 +1,28 @@
+import { useDispatch, useSelector } from "react-redux";
+import { useEffect } from "react";
+
+import { fetchPosts } from "../store/postSlice";
+import PostCard from "../components/PostCard";
+
 const Sidebar = () => {
+  const dispatch = useDispatch();
+const {posts}=useSelector ((state)=> state.posts)
+
+  useEffect(() => {
+    dispatch(fetchPosts());
+  }, []);
+
     return (
-      <div className="mt-8">
-        <div>
-          <h3 className="text-blue-500 capitalize">Design instument</h3>
-  
-          <a
-            href="#"
-            className="block mt-2 font-medium text-gray-700 hover:underline hover:text-gray-500 dark:text-gray-400 "
-          >
-            How to raise $100k+ by using blox ui kit on your design
-          </a>
-        </div>
-  
-        <hr className="my-6 border-gray-200 dark:border-gray-700" />
-  
-        <div>
-          <h3 className="text-blue-500 capitalize">UI Resource</h3>
-  
-          <a
-            href="#"
-            className="block mt-2 font-medium text-gray-700 hover:underline hover:text-gray-500 dark:text-gray-400 "
-          >
-            Should you creat UI Product by using Blox?
-          </a>
-        </div>
-  
-        <hr className="my-6 border-gray-200 dark:border-gray-700" />
-  
-        <div>
-          <h3 className="text-blue-500 capitalize">Premium Collection</h3>
-  
-          <a
-            href="#"
-            className="block mt-2 font-medium text-gray-700 hover:underline hover:text-gray-500 dark:text-gray-400 "
-          >
-            Top 10 Blocks you can get on collection.
-          </a>
-        </div>
-  
-        <hr className="my-6 border-gray-200 dark:border-gray-700" />
-  
-        <div>
-          <h3 className="text-blue-500 capitalize">Premium kits</h3>
-  
-          <a
-            href="#"
-            className="block mt-2 font-medium text-gray-700 hover:underline hover:text-gray-500 dark:text-gray-400 "
-          >
-            Top 10 Ui kit you can get on Blo collection.
-          </a>
-        </div>
+        <div className="mt-8 min-w-1/3">
+        {posts.slice(0,4).map((post) => (
+        <PostCard
+          key={post.title}
+          title={post.title}
+          description={post.desciption}
+          createdAt={post.createdAt}
+          path={post._id}
+        />))
+}
       </div>
     );
   };

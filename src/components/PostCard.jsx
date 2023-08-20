@@ -1,16 +1,28 @@
 //import React from 'react'
 import { Link } from "react-router-dom";
+import { useDispatch} from "react-redux";
 
-
+import { fetchPosts } from "../store/postSlice";
+import { DeletePostById } from "../store/postSlice";
 
 import makeDateReadable from "../utils/date";
-const PostCard = ({title,description,createdAt,path}) => {
+
+
+const PostCard = ({ title, description, createdAt, path,id }) => {
+
+  const dispatch = useDispatch();
+ 
+  const Delete = () => {
+    dispatch(DeletePostById(id)).then(() => dispatch(fetchPosts()));
+    
+
+  };
 
   return (
     <div className="max-w-2xl px-8 my-12 py-4 bg-white rounded-lg shadow-md dark:bg-gray-800">
       <div className="flex items-center justify-between">
         <span className="text-sm font-light text-gray-600 dark:text-gray-400">
-        {makeDateReadable(createdAt)}
+          {makeDateReadable(createdAt)}
         </span>
         <a
           className="px-3 py-1 text-sm font-bold text-gray-100 transition-colors duration-300 transform bg-gray-600 rounded cursor-pointer hover:bg-gray-500"
@@ -39,7 +51,8 @@ const PostCard = ({title,description,createdAt,path}) => {
       </div>
 
       <div className="flex items-center justify-between mt-4">
-        <Link to={"/"+path}
+        <Link
+          to={"/" + path}
           href="#"
           className="text-blue-600 dark:text-blue-400 hover:underline"
           tabIndex="0"
@@ -47,7 +60,22 @@ const PostCard = ({title,description,createdAt,path}) => {
         >
           Read more
         </Link>
-
+        <Link
+          to={"/" + path + "/edit"}
+          href="#"
+          className="text-blue-600 dark:text-blue-400 hover:underline"
+          tabIndex="0"
+          role="link"
+        >
+          Edit post
+        </Link>
+        <button
+          className="text-blue-600 dark:text-blue-400 hover:underline"
+          tabIndex="0"
+          onClick={()=> Delete()}
+        >
+          Delete
+        </button>
         <div className="flex items-center">
           <img
             className="hidden object-cover w-10 h-10 mx-4 rounded-full sm:block"

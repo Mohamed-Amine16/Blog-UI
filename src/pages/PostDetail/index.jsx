@@ -1,6 +1,20 @@
 //import React from 'react'
+import { useDispatch, useSelector } from "react-redux";
+import { useEffect } from "react";
+import { useParams } from "react-router-dom";
+import { fetchPostById } from "../../store/postSlice";
+
 
 const PostDetail = () => {
+  const id = useParams().id;
+  const dispatch = useDispatch();
+  const { post } = useSelector((state) => state.posts);
+
+
+  useEffect(() => {
+    dispatch(fetchPostById(id));
+  }, []);
+
   return (
     <div className="max-w-screen-lg mx-auto flex-grow">
       <div className="mb-4 md:mb-0 w-full mx-auto relative">
@@ -13,7 +27,7 @@ const PostDetail = () => {
             href="#"
             className="py-2 text-green-700 inline-flex items-center justify-center mb-2"
           >
-            Cryptocurrency
+            {post?.content}
           </a>
         </div>
       </div>
